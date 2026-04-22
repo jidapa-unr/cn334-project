@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.10.20 on linux)" generated="2026-04-22T13:27:47.670818" rpa="false" schemaversion="5">
+<suite id="s1" name="Tests" source="/tests">
+<suite id="s1-s1" name="Api Tests" source="/tests/api_tests.robot">
+<test id="s1-s1-t1" name="Verify Get All Patients Successfully" line="9">
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-04-22T13:27:47.841880" level="INFO">Creating Session using : alias=api_session, url=http://api-server:8000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<arg>api_session</arg>
+<arg>${BASE_URL}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-04-22T13:27:47.841744" elapsed="0.000291"/>
+</kw>
+<kw name="GET On Session" owner="RequestsLibrary">
+<msg time="2026-04-22T13:27:47.846650" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T13:27:48.048070" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T13:27:48.451485" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T13:27:48.467339" level="INFO">GET Request : url=http://api-server:8000/patients 
+ path_url=/patients 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg time="2026-04-22T13:27:48.467430" level="INFO">GET Response : url=http://api-server:8000/patients 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 22 Apr 2026 13:27:48 GMT', 'server': 'uvicorn', 'content-length': '492', 'content-type': 'application/json'} 
+ body=[{"patient_name":"จิดาภา อุ่นเรือน","diagnosis":"เจ็บตัวไม่เท่าไหร่ เจ็บใจสิแย่","hn_number":"6710742328","id":1,"exam_date":"2026-06-07"},{"patient_name":"ธนโชติ ยะตะโคตร","diagnosis":"ปวดใจต้องใช้เวลา ปวดหัวธรรมดาต้องพาราสองเม็ด","hn_number":"6710742112","id":2,"exam_date":"2026-07-08"}] 
+ </msg>
+<msg time="2026-04-22T13:27:48.467547" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>/patients</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-22T13:27:47.842116" elapsed="0.625452"/>
+</kw>
+<kw name="Status Should Be 200">
+<msg time="2026-04-22T13:27:48.468994" level="FAIL">No keyword with name 'Status Should Be 200' found. Did you mean:
+    RequestsLibrary.Status Should Be</msg>
+<arg>${response}</arg>
+<status status="FAIL" start="2026-04-22T13:27:48.468935" elapsed="0.000096">No keyword with name 'Status Should Be 200' found. Did you mean:
+    RequestsLibrary.Status Should Be</status>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>\nResponse Data: ${response.json()}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2026-04-22T13:27:48.469151" elapsed="0.000022"/>
+</kw>
+<doc>ทดสอบการดึงข้อมูลคนไข้ทั้งหมดจาก API</doc>
+<status status="FAIL" start="2026-04-22T13:27:47.840805" elapsed="0.628540">No keyword with name 'Status Should Be 200' found. Did you mean:
+    RequestsLibrary.Status Should Be</status>
+</test>
+<test id="s1-s1-t2" name="Verify Create New Patient" line="16">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-22T13:27:48.470668" level="INFO">${payload} = {'hn_number': 'HN999', 'patient_name': 'Robot Tester', 'exam_date': '2026-03-31', 'diagnosis': 'Automated Testing'}</msg>
+<var>${payload}</var>
+<arg>hn_number=HN999</arg>
+<arg>patient_name=Robot Tester</arg>
+<arg>exam_date=2026-03-31</arg>
+<arg>diagnosis=Automated Testing</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-22T13:27:48.470267" elapsed="0.000421"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-04-22T13:27:48.470941" level="INFO">${headers} = {'Content-Type': 'application/json'}</msg>
+<var>${headers}</var>
+<arg>Content-Type=application/json</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-04-22T13:27:48.470769" elapsed="0.000187"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-04-22T13:27:48.517594" level="INFO">POST Request : url=http://api-server:8000/patients 
+ path_url=/patients 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json', 'Content-Length': '115'} 
+ body=b'{"hn_number": "HN999", "patient_name": "Robot Tester", "exam_date": "2026-03-31", "diagnosis": "Automated Testing"}' 
+ </msg>
+<msg time="2026-04-22T13:27:48.517659" level="INFO">POST Response : url=http://api-server:8000/patients 
+ status=200, reason=OK 
+ headers={'date': 'Wed, 22 Apr 2026 13:27:48 GMT', 'server': 'uvicorn', 'content-length': '115', 'content-type': 'application/json'} 
+ body={"patient_name":"Robot Tester","diagnosis":"Automated Testing","hn_number":"HN999","id":3,"exam_date":"2026-03-31"} 
+ </msg>
+<msg time="2026-04-22T13:27:48.517764" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>api_session</arg>
+<arg>/patients</arg>
+<arg>json=${payload}</arg>
+<arg>headers=${headers}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-04-22T13:27:48.471031" elapsed="0.046751"/>
+</kw>
+<kw name="Status Should Be 200">
+<msg time="2026-04-22T13:27:48.518493" level="FAIL">No keyword with name 'Status Should Be 200' found. Did you mean:
+    RequestsLibrary.Status Should Be</msg>
+<arg>${response}</arg>
+<status status="FAIL" start="2026-04-22T13:27:48.518467" elapsed="0.000050">No keyword with name 'Status Should Be 200' found. Did you mean:
+    RequestsLibrary.Status Should Be</status>
+</kw>
+<doc>ทดสอบการเพิ่มข้อมูลคนไข้ใหม่ผ่าน POST</doc>
+<status status="FAIL" start="2026-04-22T13:27:48.469588" elapsed="0.049022">No keyword with name 'Status Should Be 200' found. Did you mean:
+    RequestsLibrary.Status Should Be</status>
+</test>
+<status status="FAIL" start="2026-04-22T13:27:47.686803" elapsed="0.832111"/>
+</suite>
+<status status="FAIL" start="2026-04-22T13:27:47.671829" elapsed="0.847361"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Tests" id="s1" pass="0" fail="2" skip="0">Tests</stat>
+<stat name="Api Tests" id="s1-s1" pass="0" fail="2" skip="0">Tests.Api Tests</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-04-22T13:27:47.846650" level="WARN">Retrying (RetryAdapter(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T13:27:48.048070" level="WARN">Retrying (RetryAdapter(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+<msg time="2026-04-22T13:27:48.451485" level="WARN">Retrying (RetryAdapter(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='api-server', port=8000): Failed to establish a new connection: [Errno 111] Connection refused")': /patients</msg>
+</errors>
+</robot>
