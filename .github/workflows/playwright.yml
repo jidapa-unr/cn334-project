@@ -1,0 +1,33 @@
+name: Playwright Frontend Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 1. Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 2. Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 3. Install Dependencies
+        working-directory: cn334-frontend
+        run: npm install
+
+      - name: 4. Install Playwright Browsers
+        working-directory: cn334-frontend
+        run: npx playwright install --with-deps
+
+      - name: 5. Run Playwright Tests
+        working-directory: cn334-frontend
+        env:
+          NEXT_PUBLIC_API_URL: http://localhost:3000
+        run: npx playwright test
