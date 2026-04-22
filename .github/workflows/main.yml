@@ -2,7 +2,8 @@ name: FastAPI Backend CI/CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 permissions:
   contents: write
@@ -21,9 +22,11 @@ jobs:
         run: |
           cd appointment-api
           docker compose up --build --exit-code-from robot_tester
-            - name: 3. Promote to Release Branch
-              if: success()
-              run: |
+          docker compose down
+
+      - name: 3. Promote to Release Branch
+        if: success()
+        run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git push origin HEAD:release --force
